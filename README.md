@@ -1,54 +1,40 @@
 # Ecommerce SQL Project
 
 ## Overview
-Acesta este un proiect de bază de date pentru un sistem simplu de e-commerce.
 
-Am construit acest proiect pentru a exersa design-ul unei baze de date relaționale și SQL (JOIN-uri, indexuri, constrângeri, agregări și view-uri).
-
----
-
-## Database structure
-
-Proiectul conține următoarele tabele:
-
-- **categorie** – categorii de produse  
-- **utilizator** – utilizatori ai platformei  
-- **produs** – lista de produse disponibile  
-- **comanda** – comenzile plasate de utilizatori  
-- **produse_comandate** – legătura dintre comenzi și produse  
+Acest proiect a fost construit pentru a exersa modelarea unei baze de date relaționale și scrierea de interogări SQL. Include relații între tabele, constrângeri, indexuri și query-uri de analiză.
 
 ---
 
-## Relații între tabele
+## Database Structure
 
-- un utilizator poate avea mai multe comenzi  
-- o comandă aparține unui singur utilizator  
-- un produs aparține unei categorii  
-- o comandă poate conține mai multe produse  
-- un produs poate apărea în mai multe comenzi  
+Baza de date conține următoarele tabele:
 
----
-
-## Ce am implementat în proiect
-
-- primary keys și foreign keys  
-- constrângeri (NOT NULL, UNIQUE, CHECK)  
-- indexuri pentru performanță  
-- JOIN-uri între tabele  
-- subquery-uri  
-- funcții de agregare (SUM, AVG)  
-- materialized view pentru raportare  
+- **categorie** – categorii de produse
+- **utilizator** – utilizatori ai platformei
+- **produs** – produse disponibile
+- **comanda** – comenzile plasate de utilizatori
+- **produse_comandate** – articolele din fiecare comandă (order items)
 
 ---
 
-## Exemple de query-uri SQL
+## ERD (Entity Relationship Diagram)
 
-### 1. Join între utilizatori și comenzi
+UTILIZATOR (1) ─────── (N) COMANDA  
+- utilizator.id_utilizator (PK)  
+- comanda.id_utilizator (FK)
 
-```sql
-SELECT u.nume_utilizator,
-       co.pret_total,
-       co.status
-FROM utilizator u
-JOIN comanda co
-    ON u.id_utilizator = co.id_utilizator;
+COMANDA (1) ─────── (N) PRODUSE_COMANDATE  
+- comanda.id_comanda (PK)  
+- produse_comandate.id_comanda (FK)
+
+PRODUS (1) ─────── (N) PRODUSE_COMANDATE  
+- produs.id_produs (PK)  
+- produse_comandate.id_produs (FK)
+
+CATEGORIE (1) ─────── (N) PRODUS  
+- categorie.id_categorie (PK)  
+- produs.categorie_id (FK)
+CATEGORIE (1) ─────── (N) PRODUS  
+- categorie.id_categorie (PK)  
+- produs.categorie_id (FK)
